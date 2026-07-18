@@ -60,10 +60,31 @@ export function DroLanding({ landing: d }: { landing: Landing }) {
     { me: false, text: "Podemos agora mesmo por aqui, com sigilo. 👇" },
   ]
 
+  const SITE = (process.env.NEXT_PUBLIC_SITE_URL || "").replace(/\/$/, "")
+  const pageUrl = SITE ? `${SITE}/${d.slug}` : undefined
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
-      { "@type": "Service", serviceType: d.serviceType || d.titleLead, areaServed: "Brasil" },
+      {
+        "@type": "LegalService",
+        name: "Dr. Oliveira Advocacia",
+        ...(pageUrl ? { url: pageUrl } : {}),
+        areaServed: "Brasil",
+        telephone: "+5511930819577",
+        email: "advogado@droliveira.adv.br",
+        priceRange: "$$",
+        knowsAbout: d.serviceType || d.titleLead,
+        provider: { "@type": "Attorney", name: "Dr. Carlos Fernando L. de Oliveira" },
+      },
+      pageUrl
+        ? {
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Início", item: SITE },
+              { "@type": "ListItem", position: 2, name: d.eyebrow || d.titleLead, item: pageUrl },
+            ],
+          }
+        : null,
       d.faq && d.faq.length
         ? { "@type": "FAQPage", mainEntity: d.faq.map((i) => ({ "@type": "Question", name: i.q, acceptedAnswer: { "@type": "Answer", text: i.a } })) }
         : null,
@@ -89,7 +110,7 @@ export function DroLanding({ landing: d }: { landing: Landing }) {
         </div>
       </header>
 
-      <main>
+      <main className="pb-16 sm:pb-0">
         {/* HERO */}
         <section className={`${NAVY_GRAD} text-[#efebe6]`}>
           <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 py-14 md:py-20 lg:grid-cols-[1.15fr_0.85fr]">
@@ -346,6 +367,19 @@ export function DroLanding({ landing: d }: { landing: Landing }) {
           Dr. Carlos Fernando L. de Oliveira — OAB/SP 524.997 · OAB/PE 24.469 · Conteúdo informativo em conformidade com o Provimento OAB 205/2021.
         </div>
       </footer>
+
+      {/* BARRA FIXA MOBILE — CTA sempre visível (conversão) */}
+      <div className="fixed inset-x-0 bottom-0 z-[60] border-t border-[#ccab76]/40 bg-[#082533]/95 p-3 backdrop-blur sm:hidden">
+        <a
+          href={WA_BASE + encodeURIComponent(wa || "Olá, gostaria de orientação.")}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center gap-2 rounded-lg bg-[#ccab76] px-5 py-3 text-base font-bold text-[#082533]"
+        >
+          <MessageCircle className="h-5 w-5" aria-hidden />
+          {d.ctaHero || "Falar no WhatsApp"}
+        </a>
+      </div>
     </>
   )
 }

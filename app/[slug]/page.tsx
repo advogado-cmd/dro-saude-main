@@ -13,11 +13,25 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
   const l = await getLanding(slug)
-  if (!l) return { title: "Página não encontrada" }
+  if (!l) return { title: "Página não encontrada", robots: { index: false, follow: false } }
+  const site = process.env.NEXT_PUBLIC_SITE_URL
+  const title = l.metaTitle || l.titleLead
+  const description = l.metaDescription || l.sub || undefined
   return {
-    title: l.metaTitle || l.titleLead,
-    description: l.metaDescription || l.sub || undefined,
+    metadataBase: site ? new URL(site) : undefined,
+    title,
+    description,
     alternates: { canonical: `/${slug}` },
+    robots: { index: true, follow: true },
+    openGraph: {
+      type: "website",
+      title,
+      description,
+      url: `/${slug}`,
+      siteName: "Dr. Oliveira Advocacia",
+      locale: "pt_BR",
+    },
+    twitter: { card: "summary_large_image", title, description },
   }
 }
 
