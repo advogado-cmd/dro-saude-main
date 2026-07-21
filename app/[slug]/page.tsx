@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { getLanding, listLandings } from "@/lib/api"
 import { DroLanding } from "@/components/DroLanding"
+import { DroLandingB } from "@/components/DroLandingB"
 
 export const revalidate = 300
 
@@ -21,8 +22,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     metadataBase: site ? new URL(site) : undefined,
     title,
     description,
-    alternates: { canonical: `/${slug}` },
-    robots: { index: true, follow: true },
+    alternates: { canonical: `/${l.variantOf || slug}` },
+    robots: l.layout === "B" || l.variantOf ? { index: false, follow: true } : { index: true, follow: true },
     openGraph: {
       type: "website",
       title,
@@ -39,5 +40,5 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   const { slug } = await params
   const landing = await getLanding(slug)
   if (!landing) notFound()
-  return <DroLanding landing={landing} />
+  return landing.layout === "B" ? <DroLandingB landing={landing} /> : <DroLanding landing={landing} />
 }
