@@ -7,8 +7,6 @@ const CLUSTER = process.env.NEXT_PUBLIC_CLUSTER || "saude"
 
 export type Landing = {
   slug: string
-  layout?: "A" | "B"
-  variantOf?: string | null
   eyebrow?: string
   titleLead: string
   titleHighlight?: string
@@ -47,7 +45,7 @@ export async function getLanding(slug: string): Promise<Landing | null> {
   }
 }
 
-type LandingIndex = Pick<Landing, "slug" | "eyebrow" | "titleLead" | "layout" | "variantOf">
+type LandingIndex = Pick<Landing, "slug" | "eyebrow" | "titleLead">
 
 export async function listLandings(): Promise<LandingIndex[]> {
   try {
@@ -55,9 +53,9 @@ export async function listLandings(): Promise<LandingIndex[]> {
     if (!res.ok) return []
     const json = await res.json()
     const docs = (json.docs as LandingIndex[]) || []
-    // O índice do subdomínio mostra só as landings canônicas (A). Variações B
-    // existem e são acessíveis por URL, mas não aparecem na grade da home.
-    return docs.filter((l) => l.layout !== "B" && !l.variantOf)
+    // O índice do subdomínio mostra só as canônicas (A). Variações B usam a
+    // convenção de slug terminando em "-b": existem por URL, mas ficam fora da home.
+    return docs.filter((l) => !l.slug.endsWith("-b"))
   } catch {
     return []
   }

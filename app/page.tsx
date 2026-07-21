@@ -7,7 +7,7 @@ export const revalidate = 300
 const WA = "https://wa.me/5511930819577?text=" + encodeURIComponent("Olá, vim pelo site de Direito à Saúde e gostaria de orientação.")
 
 export const metadata = {
-  title: "Advogado de Direito à Saúde | Plano de Saúde e Negativas — Dr. Oliveira",
+  title: "Advogado de Direito à Saúde | Plano de Saúde e Negativas · Dr. Oliveira",
   description:
     "Direito à Saúde: negativa de cobertura, carência, reajuste abusivo, reembolso, medicamentos de alto custo e liminares contra o plano. Orientação com sigilo.",
   alternates: { canonical: "https://saude.droliveira.adv.br" },
@@ -16,7 +16,7 @@ export const metadata = {
 const STEPS: [string, string][] = [
   ["Fale com o escritório", "Você conta o que houve pelo WhatsApp ou pelo formulário, com sigilo. Entendemos a negativa e os documentos."],
   ["Análise do caso", "Avaliamos a cobertura, o contrato e o entendimento atual dos tribunais para indicar o melhor caminho."],
-  ["Atuação", "Quando cabível, buscamos a solução administrativa ou a medida judicial — inclusive liminar em casos de urgência."],
+  ["Atuação", "Quando cabível, buscamos a solução administrativa ou a medida judicial, inclusive liminar em casos de urgência."],
 ]
 
 const FAQ: [string, string][] = [
@@ -46,7 +46,7 @@ export default async function Home() {
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-[#aeb8bd]">
             Negativa de cobertura, carência, reajuste abusivo, reembolso e medicamentos de alto custo.
-            Orientação clara sobre como agir — com sigilo e sem juridiquês.
+            Orientação clara sobre como agir, com sigilo e sem juridiquês.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <a href={WA} target="_blank" rel="noopener noreferrer" className="rounded-lg bg-[#25D366] px-7 py-3 font-semibold text-white transition hover:bg-[#20ba5a]">
@@ -145,7 +145,7 @@ export default async function Home() {
       </section>
 
       <footer className="bg-[#0a212e] px-5 py-6 text-center text-[11px] text-[#8a97a0]">
-        Dr. Carlos Fernando L. de Oliveira — OAB/SP 524.997 · OAB/PE 24.469 · Conteúdo informativo em conformidade com o Provimento OAB 205/2021.
+        Dr. Carlos Fernando L. de Oliveira · OAB/SP 524.997 · OAB/PE 24.469 · Conteúdo informativo em conformidade com o Provimento OAB 205/2021.
       </footer>
     </>
   )

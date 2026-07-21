@@ -22,8 +22,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     metadataBase: site ? new URL(site) : undefined,
     title,
     description,
-    alternates: { canonical: `/${l.variantOf || slug}` },
-    robots: l.layout === "B" || l.variantOf ? { index: false, follow: true } : { index: true, follow: true },
+    alternates: { canonical: `/${slug.endsWith("-b") ? slug.slice(0, -2) : slug}` },
+    robots: slug.endsWith("-b") ? { index: false, follow: true } : { index: true, follow: true },
     openGraph: {
       type: "website",
       title,
@@ -40,5 +40,5 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   const { slug } = await params
   const landing = await getLanding(slug)
   if (!landing) notFound()
-  return landing.layout === "B" ? <DroLandingB landing={landing} /> : <DroLanding landing={landing} />
+  return slug.endsWith("-b") ? <DroLandingB landing={landing} /> : <DroLanding landing={landing} />
 }

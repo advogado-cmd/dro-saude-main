@@ -174,7 +174,7 @@ export function DroLandingB({ landing: d }: { landing: Landing }) {
       </main>
 
       <footer className="bg-[#0a212e] px-5 py-6 text-center text-[11px] text-[#8a97a0]">
-        Dr. Carlos Fernando L. de Oliveira — OAB/SP 524.997 · OAB/PE 24.469 · Conteúdo informativo em conformidade com o Provimento OAB 205/2021.
+        Dr. Carlos Fernando L. de Oliveira · OAB/SP 524.997 · OAB/PE 24.469 · Conteúdo informativo em conformidade com o Provimento OAB 205/2021.
       </footer>
 
       {/* BARRA FIXA MOBILE */}
