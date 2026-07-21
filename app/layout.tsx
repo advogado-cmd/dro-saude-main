@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { Roboto, Roboto_Serif } from "next/font/google"
 import Script from "next/script"
+import { WaTracker } from "@/components/wa-tracker"
 import "./globals.css"
 
 const roboto = Roboto({ subsets: ["latin"], weight: ["300", "400", "500", "700"], variable: "--font-roboto", display: "swap" })
@@ -35,6 +36,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           </noscript>
         ) : null}
         {children}
+        <WaTracker site="saude" />
       </body>
     </html>
   )
