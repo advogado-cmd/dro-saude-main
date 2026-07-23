@@ -333,6 +333,33 @@ export function DroLanding({ landing: d }: { landing: Landing }) {
           </section>
         ) : null}
 
+        {/* BASE LEGAL */}
+        {d.laws && d.laws.length ? (
+          <section className="bg-[#f6f4ef]">
+            <div className="mx-auto max-w-3xl px-5 py-12">
+              <Kicker icon={Landmark}>Base legal</Kicker>
+              <ul className="mt-5 space-y-2">
+                {d.laws.map((l, i) => (
+                  <li key={i}>
+                    <a
+                      href={l.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-start gap-2 text-[#082533] underline decoration-[#ccab76] underline-offset-4 hover:text-[#9a7635]"
+                    >
+                      <Landmark className="mt-1 h-4 w-4 shrink-0 text-[#9a7635]" aria-hidden />
+                      <span>{l.label}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-4 text-xs leading-relaxed text-[#54636c]">
+                Links para o texto oficial. Conteúdo informativo — a aplicação ao seu caso exige análise individual.
+              </p>
+            </div>
+          </section>
+        ) : null}
+
         {/* CTA FINAL */}
         <section className={`${NAVY_GRAD} text-[#efebe6]`}>
           <div className="mx-auto max-w-3xl px-5 py-16 text-center">

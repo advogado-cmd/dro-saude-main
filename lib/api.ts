@@ -32,6 +32,7 @@ export type Landing = {
   serviceType?: string
   metaTitle?: string
   metaDescription?: string
+  laws?: { label: string; url: string }[]
 }
 
 export async function getLanding(slug: string): Promise<Landing | null> {
